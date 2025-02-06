@@ -1,16 +1,7 @@
 <?php
-
+namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\AfishaController;
-use App\Http\Controllers\McController;
-use App\Http\Controllers\RoomsController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\MainController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,31 +12,32 @@ use App\Http\Controllers\MainController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/', [MainController::class, 'index'])->name('main.index');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/posts', [PostController::class, 'index'])->name('post.index');
-Route::get('/posts/create', [PostController::class, 'create']);
-Route::post('/posts', [PostController::class, 'store'])->name('post.store');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('post.show');
-Route::get('/posts/update', [PostController::class, 'update']);
-Route::get('/posts/delete', [PostController::class, 'delete']);
-Route::get('/posts/firstOrCreate', [PostController::class, 'firstOrCreate']);
-Route::get('/posts/updateOrCreate', [PostController::class, 'updateOrCreate']);
-
-Route::get('/posts/restore', [PostController::class, 'restore']);
 
 Route::get('/main', [MainController::class, 'index'])->name('main.index');
-Route::get('/afisha', [AfishaController::class, 'index'])->name('afisha.index');
-Route::get('/mc', [McController::class, 'index'])->name('mc.index');
-Route::get('/rooms', [RoomsController::class, 'index'])->name('rooms.index');
-Route::get('/room', [RoomController::class, 'index'])->name('room.index');
-Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+Route::get('/main/about', [MainController::class, 'about'])->name('main.about');
+//Route::get('/afisha', [AfishaController::class, 'index']);
+Route::get('/afisha-date/{date}', [AfishaController::class, 'afisha_date'])->name('afisha.index');
 
+Route::get('/masterclass/{id}/{event_id}', [MasterclassController::class, 'index'])->name('masterclass');
+Route::delete('afisha/delete/{id}', [AfishaController::class, 'delete'])->name('masterclass.delete');
+Route::get('/cabinets', [CabinetsController::class, 'index'])->name('cabinets.index');
+Route::get('/cabinet{id}', [CabinetController::class, 'index'])->name('cabinet.index');
+Route::post('/seat-booking', [SeatController::class, 'booking'])->name('seat.booking');
 
-Route::get('/articles', [ArticleController::class, 'index']);
 Auth::routes();
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/test', [TestController::class, 'index'])->name('test');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/account', [AccountController::class, 'index'])->name('account');
+Route::post('/account/cancel', [AccountController::class, 'cancel'])->name('account.cancel');
+Route::post('/account/user/id', [AccountController::class, 'edit_user'])->name('account.user.edit');
+
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index')->middleware('admin');
+Route::get('/lector', [LecturerController::class, 'index'])->name('lector.index')->middleware('lector');
+Route::get('/lector/form/{cabinet_id}', [LecturerController::class, 'form'])->name('lector.create.form')->middleware('lector');
+Route::post('/lector/create', [LecturerController::class, 'create'])->name('lector.create')->middleware('lector');
+Route::post('/admin/edit', [AdminController::class, 'edit'])->name('admin.edit.user')->middleware('admin');
+Route::post('/admin/publish/masterclass', [AdminController::class, 'publishMasterclass'])->name('admin.publish.masterclass')->middleware('admin');
+Route::post('/admin/decline/masterclass', [AdminController::class, 'declineMasterclass'])->name('admin.decline.masterclass')->middleware('admin');
