@@ -92,7 +92,7 @@
             @endfor
         </tbody>
     </table>
-    <button type="submit" class="custom-button">Отправить</button>
+    <button type="submit" class="custom-button">Создать</button>
     </form>
 
 

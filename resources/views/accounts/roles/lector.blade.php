@@ -40,8 +40,7 @@ for ($h = 1; $h < 4; $h++) {
 }
 ?>
 <input class="form-control" type="hidden" id="masterclasses-times" name='masterclasses-times'
-    data-masterclasses-times="{{ json_encode($masterclasses_times) }}"
-    value="{{ json_encode($masterclasses_times) }}">
+    data-masterclasses-times="{{ json_encode($masterclasses_times) }}" value="{{ json_encode($masterclasses_times) }}">
 <div class="d-flex">
     <!-- Sidebar Menu -->
     <nav class="sidebar p-3" style="width: 250px; min-height: 100vh;">
@@ -134,14 +133,13 @@ for ($h = 1; $h < 4; $h++) {
                             <div class="px-0">
                                 <div
                                     class="bg-danger rounded-4 d-flex px-3 justify-content-between text-light fs-3 mt-3">
-                                    @if ($masterclass->decline_message)
+                                    @if ($masterclass->decline_message && $masterclass->status == '2')
                                         <div class="d-flex">{{ $masterclass->decline_message }}</div>
                                         <div class="d-flex align-items-end russo-one-regular">Админ</div>
                                     @endif
                                 </div>
                                 <img src="{{ asset("storage/images/$masterclass->img_main") }}" alt=""
-                                    class='mt-5 img-rounded w-100 img-fluid'
-                                    style="object-fit: cover;">
+                                    class='mt-5 img-rounded w-100 img-fluid' style="object-fit: cover;">
                                 <div class='fs-5 ms-3 mt-3 text-break'><span class="russo-one-regular my-2  ">Заголовок:
                                     </span>{{ $masterclass->title }}</div>
                                 <div class='fs-5 ms-3 text-break'><span class="russo-one-regular my-2">Автор:
@@ -162,47 +160,58 @@ for ($h = 1; $h < 4; $h++) {
                                 </div>
 
                                 <div id="carouselExampleIndicators{{ $masterclass->id }}" class="carousel slide my-4">
-                                    <div class="carousel-inner">
-                                        <div class="carousel-indicators">
-                                            <button type="button"
-                                                data-bs-target="#carouselExampleIndicators{{ $masterclass->id }}"
-                                                data-bs-slide-to="0" class="active carouselIndicator"
-                                                aria-current="true" aria-label="Slide 1"></button>
-                                            @for ($i = 1; $i < count($galleries->where('masterclass_id', $masterclass->id)->all()); $i++)
+                                    @php
+                                        $galleryImages = $galleries->where('masterclass_id', $masterclass->id)->all();
+                                    @endphp
+
+                                    @if (count($galleryImages) > 0)
+                                        <div class="carousel-inner">
+                                            <div class="carousel-indicators">
                                                 <button type="button"
                                                     data-bs-target="#carouselExampleIndicators{{ $masterclass->id }}"
-                                                    class="carouselIndicator" data-bs-slide-to="{{ $i }}"
-                                                    aria-label="Slide {{ $i }}"></button>
-                                            @endfor
+                                                    data-bs-slide-to="0" class="active carouselIndicator"
+                                                    aria-current="true" aria-label="Slide 1"></button>
+                                                @for ($i = 1; $i < count($galleryImages); $i++)
+                                                    <button type="button"
+                                                        data-bs-target="#carouselExampleIndicators{{ $masterclass->id }}"
+                                                        class="carouselIndicator"
+                                                        data-bs-slide-to="{{ $i }}"
+                                                        aria-label="Slide {{ $i }}"></button>
+                                                @endfor
+                                            </div>
 
+                                            <div class="carousel-item active">
+                                                <img src="{{ asset('storage/images/' . $galleryImages[0]->img_name) }}"
+                                                    class="d-block img-rounded w-100 img-fluid "
+                                                    style="object-fit: cover;" alt="...">
+                                            </div>
+
+                                            @foreach ($galleryImages as $img)
+                                                @if ($img->id !== $galleryImages[0]->id)
+                                                    <div class="carousel-item">
+                                                        <img src="{{ asset('storage/images/' . $img->img_name) }}"
+                                                            class="d-block img-rounded w-100 img-fluid "
+                                                            style="object-fit: cover;" alt="...">
+                                                    </div>
+                                                @endif
+                                            @endforeach
                                         </div>
-                                        <div class="carousel-item active">
-                                            <img src="{{ asset('storage/images/' . $galleries->where('masterclass_id', $masterclass->id)->first()->img_name) }}"
-                                                class="d-block img-rounded w-100 img-fluid "
-                                                style=" object-fit: cover; " alt="...">
-                                        </div>
-                                        @foreach ($galleries->where('masterclass_id', $masterclass->id)->all() as $img)
-                                            @if ($img->id !== $galleries->where('masterclass_id', $masterclass->id)->first()->id)
-                                                <div class="carousel-item">
-                                                    <img src="{{ asset('storage/images/' . $img->img_name) }}"
-                                                        class="d-block img-rounded w-100 img-fluid "
-                                                        style="object-fit: cover; " alt="...">
-                                                </div>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <button class="carousel-control-prev" type="button"
-                                        data-bs-target="#carouselExampleIndicators{{ $masterclass->id }}"
-                                        data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button"
-                                        data-bs-target="#carouselExampleIndicators{{ $masterclass->id }}"
-                                        data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
+                                        <button class="carousel-control-prev" type="button"
+                                            data-bs-target="#carouselExampleIndicators{{ $masterclass->id }}"
+                                            data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Previous</span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button"
+                                            data-bs-target="#carouselExampleIndicators{{ $masterclass->id }}"
+                                            data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="visually-hidden">Next</span>
+                                        </button>
+                                    @else
+                                        <!-- Сообщение, если изображений нет -->
+                                        <p>Нет изображений для этого мастер-класса.</p>
+                                    @endif
                                 </div>
                                 <div class='fs-4 ms-3'><span class="russo-one-regular">Стоимость: </span> <span
                                         class="justify-content-center rounded-4">{{ $masterclass->price }}

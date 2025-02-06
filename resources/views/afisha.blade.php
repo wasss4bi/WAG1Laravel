@@ -1,80 +1,48 @@
 @extends('layouts.main')
-@section('content')
 @section('title')
-    <title>
-        Афиша</title>
+    <title>Афиша</title>
 @endsection
-<div class='d-flex justify-content-start pt-5 flex-wrap'>
-    @for ($i = 0; $i < 7; $i++)
-        @if ($date == date('d.m.y', time() + 86400 * $i))
-            <a style='width:calc(100% / 7 - 10px); min-width:75px; max-width: 100px;'
-                class="russo-one-regular fs-5 m-2 d-flex justify-content-center align-items-center custom-button-dark date-btn"
+
+@section('content')
+
+<!-- Блок выбора даты -->
+<div class='d-flex flex-column align-items-center pt-5'>
+    <span class='opacity-50 mb-3 fs-6'>Выберите дату проведения мастер-класса</span>
+    <div class='d-flex flex-wrap justify-content-center gap-2'>
+        @for ($i = 0; $i < 7; $i++)
+            <a class="russo-one-regular fs-6 px-4 py-2 rounded-pill border border-dark text-dark {{ $date == date('d.m.y', time() + 86400 * $i) ? 'bg-secondary text-light' : 'bg-light' }}"
                 href="{{ route('afisha.index', date('d.m.y', time() + 86400 * $i)) }}">{{ date('d.m', time() + 86400 * $i) }}</a>
-        @else
-            <a style='width:calc(100% / 7 - 10px); min-width:75px; max-width: 100px;'
-                class="russo-one-regular fs-5 m-2 d-flex justify-content-center align-items-center custom-button date-btn"
-                href="{{ route('afisha.index', date('d.m.y', time() + 86400 * $i)) }}">{{ date('d.m', time() + 86400 * $i) }}</a>
-        @endif
-    @endfor
-    <span class='d-flex align-items-center opacity-50 '>Выберите дату проведения мастер-класса</span>
+        @endfor
+    </div>
 </div>
+
 @if ($masterclasses)
-    <div class="row mt-5 d-flex justify-content-between justify-content-md-center  img-container">
-        @foreach ($masterclasses as $masterclass)
-            <div class="col-6">
-                <div class="row">
-                    <div class="col-12 img-container">
-                        <img src="{{ asset('storage/images/' . $masterclass->img_main) }}" alt=""
-                            class='img-rounded w-100 img-fluid ' style="height:250px; object-fit: cover;">
-                    </div>
-                    <div class="col-12 border-top border-bottom border-black d-flex justify-content-center flex-wrap align-items-start rounded-4 "
-                        style="min-height:250px;">
-                        <div class='d-flex flex-wrap w-100  justify-content-between'>
-                            <h2 class='d-flex w-100 mt-3 russo-one-regular justify-content-between'>{{ $masterclass->title }}
+    <div class="mt-5 container">
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            @foreach ($masterclasses as $masterclass)
+                <div class="col">
+                    <div class="card shadow-sm border-0 rounded-4">
+                        <img src="{{ asset('storage/images/' . $masterclass->img_main) }}" class="card-img-top rounded-top-4" style="height:200px; object-fit:cover;">
+                        <div class="card-body">
+                            <h5 class="card-title russo-one-regular d-flex justify-content-between">
+                                {{ $masterclass->title }}
                                 @if ($masterclass->age_restriction == 1)
-                                    <span class="custom-button-dark p-1 text-light  rounded-5 ">18+</span>
+                                    <span class="badge bg-dark">18+</span>
                                 @endif
-                            </h2>
-                        </div>
-                        <div class='d-flex flex-wrap w-100'>
-                        </div>
-                        <div class='d-flex flex-wrap justify-content-end align-items-center w-100 '>
-                            @foreach ($events->where('masterclass_id', $masterclass->id)->where('event_date', $date)->all() as $event)
-                                <a href="{{ route('masterclass', ['id' => $masterclass->id, 'event_id' => $event->id]) }}"
-                                    class="russo-one-regular d-flex custom-button fs-6 w-50 justify-content-center text-nowrap my-1">{{ $event->event_time }}</a>
-                            @endforeach
-                            @csrf
-                            {{--       <button data-id="{{$masterclass->id}}" class="btn btn-primary post">бамбам</button> --}}
+                            </h5>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                @foreach ($events->where('masterclass_id', $masterclass->id)->where('event_date', $date)->all() as $event)
+                                    <a href="{{ route('masterclass', ['id' => $masterclass->id, 'event_id' => $event->id]) }}" class="btn btn-outline-primary rounded-pill px-3 py-2">{{ $event->event_time }}</a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 @else
-    <div class="d-flex justify-content-center fs-3 text-secondary">На {{ $date }} ещё нет мастер-классов</div>
+    <div class="d-flex justify-content-center fs-3 text-secondary mt-5">На {{ $date }} ещё нет мастер-классов</div>
 @endif
-<div id="event-container"></div>
-{{-- <script>
-  $(document).ready(function() {
-    $(".post").click(function() {
-      post_id = $(this).data("id");
-      console.log(post_id);
-      token = "{{ csrf_token() }}";
-      $.ajax({
-        type: "DELETE",
-        url: "/afisha/delete/"+post_id,
-        headers: {
-          'X-CSRF-TOKEN': token
-        },
-        success: function(data) {
-          console.log(data);
-        },
-        error: function(data) {
-          console.log(data);
-        }
-      });
-    });
-});
-</script> --}}
+
 @endsection

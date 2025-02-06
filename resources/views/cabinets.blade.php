@@ -1,19 +1,23 @@
 @extends('layouts.main')
 @section('title')
-<title>Список помещений</title>
+    <title>Список помещений</title>
 @endsection
+
 @section('content')
-@foreach($cabinets as $cabinet)
-<div class="row mt-5 d-flex justify-content-between">
-    <div class="col-lg-4  col-sm-12 img-container">
-        <img src="{{asset("build/images/$cabinet->img")}}" alt="" class='img-rounded w-100 img-fluid ' style="height:250px; object-fit: cover;">
-    </div>
-    <div class="col-lg-8  col-sm-12 border-top border-bottom border-black d-flex flex-md-nowrap flex-wrap  py-2 my-2 justify-content-between align-items-center">
-        <div class='d-flex flex-wrap'>
-            <h2 class='d-flex w-100 mt-3 russo-one-regular '>{{$cabinet->title}}</h2>
-        </div>
-        <div class="d-flex justify-content-center w-100" ><a href="{{route('cabinet.index',$cabinet->id)}}" class="d-flex  custom-button fs-3">Подробнее</a></div>
+<div class="container mt-5">
+    <h1 class="text-center russo-one-regular mb-4">Выберите помещение</h1>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach($cabinets as $cabinet)
+            <div class="col">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <img src="{{ asset('build/images/' . $cabinet->img) }}" alt="{{ $cabinet->title }}" class="card-img-top rounded-top-4" style="height: 200px; object-fit: cover;">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h5 class="card-title russo-one-regular text-center">{{ $cabinet->title }}</h5>
+                        <a href="{{ route('cabinet.index', $cabinet->id) }}" class="btn btn-outline-primary w-75 mt-3">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 </div>
-@endforeach
 @endsection

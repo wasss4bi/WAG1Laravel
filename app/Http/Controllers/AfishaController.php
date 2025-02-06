@@ -12,11 +12,11 @@ class AfishaController extends Controller
 {
     public function afisha_date($date)
     {
-        $masterclasses = Masterclass::where('status', 1)->get();
+        $masterclassesAll = Masterclass::where('status', 1)->get();
         $events = Event::all();
         $seats   = Seat::all();
         $masterclasses = [];
-        foreach ($masterclasses as $masterclass) {
+        foreach ($masterclassesAll as $masterclass) {
             if ($events->where('masterclass_id', $masterclass->id)->where('event_date', $date)->all()) {
                 $masterclasses[] = $masterclass;
             }
