@@ -1,0 +1,309 @@
+/* app.css */
+.header-line {
+    background-color: #002030;
+    height: 20px;
+}
+
+.header-block {
+    background-color: #213c56;
+}
+
+.footer-block {
+    color: #bee0ff;
+    background-color: #213c56;
+    height: 150px;
+}
+
+.russo-one-regular {
+    font-family: "Russo One", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.rotate-90 {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+.rotate-0 {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.img-rounded {
+    border-radius: 50px;
+}
+
+.img-rounded-right {
+    border-radius: 50px 200px 50px 200px;
+}
+
+.img-rounded-left {
+    border-radius: 200px 50px 200px 50px;
+}
+
+.img-media-big {
+    display: none;
+}
+
+.img-media-small {
+    display: flex;
+}
+
+.text-media {
+    width: 50%;
+}
+
+.text-media-right {
+    width: 50%;
+    text-align: end;
+}
+
+.custom-button {
+    background-color: #001f59;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    border: none;
+    font-weight: 800;
+    padding: 0.5em;
+}
+
+.custom-button-dark {
+    background-color: #002030;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    border: none;
+    font-weight: 800;
+    padding: 0.3em;
+}
+.custom-button:hover {
+    background-color: rgb(0, 103, 112);
+    transition: ease .2s;
+    color: white;
+}
+
+.seat-free {
+    background-color: white;
+}
+
+.seat-free,
+.seat-booked {
+    font-size:30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+}
+
+.seat-free:hover {
+    background-color: #bee0ff;
+}
+
+.seat-booked {
+    background-color: #0077b3;
+}
+
+.seat-padding {
+    padding: 0 35px;
+}
+
+.seat-bottom-margin {
+    margin-bottom: 20px;
+}
+
+.seat-top-margin {
+    margin-top: 20px;
+}
+
+.class {
+    background-image: url('../images/class.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+}
+
+.class-padding {
+    padding: 15px;
+}
+
+.disable-click {
+    pointer-events: none;
+}
+
+.room-label {
+    display: inline-block;
+    width: 400px;
+    height: 250px;
+    background-size: cover;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.room1-img {
+
+    background-image: url('../images/room1.jpg');
+}
+
+.room2-img {
+    background-image: url('../images/room2.jpg');
+}
+
+.room3-img {
+    background-image: url('../images/room3.jpg');
+}
+.carousel-item img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 200vh; /* Задайте максимальную высоту в зависимости от вашего предпочтения */
+    object-fit: cover;
+}
+
+/* Стили для увеличения и тени при выборе */
+.room:checked+.room-label {
+    transform: scale(1.1);
+    /* Увеличиваем размер при выборе */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* Добавляем тень */
+}
+
+/* Скрытие стандартного радиокнопки */
+.room {
+    display: none;
+}
+.table-fs{
+    font-size: 25px;
+}
+
+.sidebar {
+    width: 250px;
+    background: white;
+    padding: 15px;
+    color: black;
+}
+.sidebar *{
+    color:black;
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+}
+#myMasterclasss {
+    display: none;
+}
+@media (max-width: 1400px) {
+
+    .seat-free,
+    .seat-booked {
+        width: 60px;
+        height: 60px;
+    }
+
+    .class-padding {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 1200px) {
+
+    .seat-free,
+    .seat-booked {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 992px) {
+
+    .seat-free,
+    .seat-booked {
+        width: 40px;
+        height: 40px;
+    }
+
+    .seat-padding {
+        padding: 0 20px;
+    }
+
+    .class-padding {
+        padding: 7px;
+    }
+
+    .seat-bottom-margin {
+        margin-bottom: 10px;
+    }
+
+    .seat-top-margin {
+        margin-top: 10px;
+    }
+
+    .img-media-big {
+        display: block;
+    }
+
+    .img-media-small {
+        display: none;
+    }
+
+    .text-media,
+    .text-media-right {
+        width: 100%;
+        text-align: center;
+    }
+    .table-fs{
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .seat-free,
+    .seat-booked {
+        font-size: 25px;
+        width: 35px;
+        height: 35px;
+    }
+
+    .seat-padding {
+        padding: 0 20px;
+    }
+
+    .class-padding {
+        padding: 0px;
+    }
+
+    .seat-bottom-margin {
+        margin-bottom: 5px;
+    }
+
+    .seat-top-margin {
+        margin-top: 5px;
+    }
+    .table-fs{
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 576px) {
+    .seat-free,
+    .seat-booked {
+        font-size:15px;
+        width: 30px;
+        height: 30px;
+    }
+}
+@media (max-width: 450px) {
+    .seat-free,
+    .seat-booked {
+        width: 25px;
+        height: 25px;
+    }
+    .table-fs{
+        font-size: 10px;
+    }
+}
