@@ -5,7 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @yield('title')
-    <link rel="shortcut icon" type="image/x-icon" href="build/images/favicon.png" />
+
+    <link rel="icon" type="image/png" href="build/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="build/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="build/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="build/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Креативный простор" />
+    <link rel="manifest" href="build/favicon/site.webmanifest" />
+    
     <link rel="stylesheet" href="{{ asset('build/assets/app-D-sv12UV.css') }}">
     <link rel="stylesheet" href="{{ asset('build/assets/app.css') }}">
 
@@ -24,7 +31,7 @@
                 <nav class="navbar navbar-expand-lg col-12">
                     <div class="container-fluid">
                         <a class="nav-link me-5" href="{{ route('main.index') }}">
-                            <img src="{{ asset('build/images/logo.png') }}" alt="logo" width="150">
+                            <img src="{{ asset('build/images/logo.png') }}" alt="logo" width="180">
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -142,7 +149,7 @@
     </div>
 
     <div class="col-12 footer-block d-flex align-items-center justify-content-center">
-        <p class='d-flex fs-3'>МастерЛектор &copy; 2024</p>
+        <p class='d-flex fs-3'>Креативный простор &copy; 2024</p>
     </div>
     <script src="{{ asset('build/assets/app-DFMGEaK5.js') }}"></script>
     <script src="{{ asset('build/assets/app.js') }}"></script>

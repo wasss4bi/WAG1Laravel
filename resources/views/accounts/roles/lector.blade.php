@@ -162,9 +162,10 @@ for ($h = 1; $h < 4; $h++) {
                                 <div id="carouselExampleIndicators{{ $masterclass->id }}" class="carousel slide my-4">
                                     @php
                                         $galleryImages = $galleries->where('masterclass_id', $masterclass->id)->all();
+                                        $firstImage = $galleries->where('masterclass_id', $masterclass->id)->first();
                                     @endphp
 
-                                    @if (count($galleryImages) > 0)
+                                    @if (count($galleryImages) > 0 && isset($firstImage))
                                         <div class="carousel-inner">
                                             <div class="carousel-indicators">
                                                 <button type="button"
@@ -179,15 +180,15 @@ for ($h = 1; $h < 4; $h++) {
                                                         aria-label="Slide {{ $i }}"></button>
                                                 @endfor
                                             </div>
-
+                                            
                                             <div class="carousel-item active">
-                                                <img src="{{ asset('storage/images/' . $galleryImages[0]->img_name) }}"
+                                                <img src="{{ asset('storage/images/' . $firstImage->img_name) }}"
                                                     class="d-block img-rounded w-100 img-fluid "
                                                     style="object-fit: cover;" alt="...">
                                             </div>
 
                                             @foreach ($galleryImages as $img)
-                                                @if ($img->id !== $galleryImages[0]->id)
+                                                @if ($img->id !== $firstImage->id)
                                                     <div class="carousel-item">
                                                         <img src="{{ asset('storage/images/' . $img->img_name) }}"
                                                             class="d-block img-rounded w-100 img-fluid "

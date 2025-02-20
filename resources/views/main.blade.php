@@ -27,20 +27,21 @@
 
 <!-- Основной текст -->
 <div class="text-center py-4">
-    <h2 class="russo-one-regular">Хочешь знаний? Нужен ментор?</h2>
-    <p class="fs-4">Заходи на Мастер Лектор!</p>
+    <!--<h2 class="russo-one-regular">Хочешь знаний? Нужен ментор?</h2>-->
+    <h2 class="russo-one-regular">Лекторам – удобная площадка, <br>слушателям – знания без границ</h2>
+    <!-- <p class="fs-4">Лекторам – удобная площадка, слушателям – знания без границ</p> -->
 </div>
 
 <!-- Блок о мастер-классах и помещениях (в один столбец) -->
 <div class="container text-center">
     <div class="mb-5">
-        <img src="{{asset('build/images/mc1.jpg')}}" class="img-fluid rounded-4 mb-3" alt="..." width="70%">
-        <p class="fs-5">Мы создаем атмосферу, где каждый участник может погрузиться в увлекательный мир новых навыков и знаний, под руководством опытных экспертов.</p>
+        <img src="{{asset('build/images/mc1.jpeg')}}" class="img-fluid rounded-4 mb-3" alt="..." width="70%">
+        <p class="fs-5">Мы сотрудничаем с талантливыми и опытными лекторами, которые готовы делиться своими знаниями и опытом.</p>
         <a href="{{route('afisha.index', date('d.m.y'))}}" class="btn btn-primary">Выбрать мастер-класс</a>
     </div>
     <div class="mb-5">
-        <img src="{{asset('build/images/mc2.jpg')}}" class="img-fluid rounded-4 mb-3" alt="..." width="70%">
-        <p class="fs-5">Мы предлагаем помещения с современным оборудованием, чтобы обеспечить комфортное и продуктивное пребывание. Выберите помещение прямо сейчас!</p>
+        <img src="{{asset('build/images/mc2.webp')}}" class="img-fluid rounded-4 mb-3" alt="..." width="70%">
+        <p class="fs-5">Мы предлагаем гибкие условия аренды, чтобы вы могли сосредоточиться на подготовке и проведении ваших лекций</p>
         <a href="{{route('cabinets.index')}}" class="btn btn-primary">Выбрать помещение</a>
     </div>
 </div>
